@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 
 def generate_data(series, n_past, n_future):
@@ -16,26 +16,20 @@ def generate_data(series, n_past, n_future):
 
 
 def min_max_scale(df):
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
     new_df = scaler.fit_transform(df)
     return new_df, scaler
 
 
+def get_y_scaler(df):
+    df = df[['PM2.5']]
+    new_df, scaler = min_max_scale(df)
+    return scaler
+
+
 # if __name__ == '__main__':
-#     df = pd.read_csv('2017_2020.csv')
-#     col_name = ['MB_TEMP', 'WD_HR', 'WIND_DIREC', 'WIND_SPEED', 'RINFLL', 'PM2.5']
-#     data = df[col_name]
-#     data_after_scale, scaler = min_max_scale(data)
-#
-#     x, y = generate_data(data_after_scale, 1, 1)
-#     x_train = x[:int(x.shape[0] * 0.8), :, :]
-#     x_test = x[int(x.shape[0] * 0.8):, :, :]
-#     y_train = y[:int(x.shape[0] * 0.8), :]
-#     y_test = y[int(x.shape[0] * 0.8):, :]
-#
-#
-#     print(x_train.shape)
-#     print(x_test.shape)
-#     print(y_train.shape)
-#     print(y_test.shape)
+    # df = pd.read_csv('new.csv')
+    # col_name = ['MB_TEMP', 'WD_HR', 'WIND_DIREC', 'WIND_SPEED', 'RINFLL', 'PM2.5']
+    # data = df[col_name]
+    # scaler = get_y_scaler(data)
 
