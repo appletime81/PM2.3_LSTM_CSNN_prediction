@@ -27,11 +27,25 @@ if __name__ == '__main__':
 
     print(f"data_after_scale shape : {data_after_scale.shape}")
 
-    x, y = generate_data(data_after_scale)
+    print(data_after_scale.shape)
+    # print(len(data_after_scale))
+    n_future = 8
+    n_past = 8
+
+    x = []
+    y = []
+    for i in range(n_past, len(data_after_scale) - n_future + 1):
+        x.append(data_after_scale[i - n_past:i, 0:data_after_scale.shape[1]])
+        y.append(data_after_scale[i + n_future - 1:i + n_future, 0])
+
     x = np.array(x)
-    # print(x.shape)
-    x = x.reshape(-1, 1, 6)
+    y = np.array(y)
     print(x.shape)
+    print(y.shape)
+
+
+
+
 
 
 
